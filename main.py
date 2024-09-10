@@ -4,7 +4,7 @@ from lib.screen import Screen
 from pathlib import Path
 
 
-class Gui:
+class DrBsGui:
     def __init__(self, file: Path = None, parent=None):
         self.m = tk.Tk()
         self.m.title("Dr Bs Dungeon Crawler")
@@ -37,7 +37,7 @@ def load_all_files():
 
     for f in files:
         if f.is_file():
-            d = Gui(f)
+            d = DrBsGui(f)
             d.m.mainloop()
 
 
@@ -52,7 +52,7 @@ def find_random_layout():
 
 
 # Some files for testing
-gui = Gui(file=Path("DungeonLayouts", "testMaze.txt"))
+gui = DrBsGui(file=Path("DungeonLayouts", "testMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","testSearch.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallSafeSearch.txt"))
@@ -93,7 +93,7 @@ gui = Gui(file=Path("DungeonLayouts", "testMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","contestClassic.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","mediumClassic.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","mediumSearch.txt"))
-# gui = DrBsGui(file=Path("DungeonLayouts","openClassic.txt"))		
+# gui = DrBsGui(file=Path("DungeonLayouts","openClassic.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","openSearch.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","originalClassic.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","powerClassic.txt"))
