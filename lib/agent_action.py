@@ -1,7 +1,7 @@
 class AgentAction:
 
-    def __init__(self, isAnAction: bool):
-        self.isAnAction = isAnAction
+    def __init__(self, is_an_action: bool):
+        self.is_an_action = is_an_action
 
     def __str__(self):
         if self == AgentAction.moveLeft:

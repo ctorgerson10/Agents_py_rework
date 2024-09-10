@@ -6,38 +6,37 @@ from lib.game_state import GameState
 class AgentBrain:
 
     def __init__(self):
-        self.nextMoves = deque()
+        self.next_moves = deque()
 
-    def addNextMove(self, nextMove: AgentAction):
-        self.nextMoves.append(nextMove)
+    def add_next_move(self, next_move: AgentAction):
+        self.next_moves.append(next_move)
 
-    def clearAllMoves(self):
-        self.nextMoves = deque()
+    def clear_all_moves(self):
+        self.next_moves = deque()
 
-    def getNextMove(self) -> AgentAction:
-        if len(self.nextMoves) == 0:
+    def get_next_move(self) -> AgentAction:
+        if len(self.next_moves) == 0:
             return AgentAction.doNothing
-        return self.nextMoves.pop(0)
+        return self.next_moves.pop()
 
-    def search(self, map: list[list[str]]):
-
+    def search(self, game_map: list[list[str]]):
         # TODO: Change this to False
-        useOnlyKeyListener = True
-        if useOnlyKeyListener:
-            #For Key Listener, and empty list
-            self.nextMoves = []
+        use_only_key_listener = True
+        if use_only_key_listener:
+            # For Key Listener, and empty list
+            self.next_moves = []
         else:
-            #For code
-            self.nextMoves = GameState.search(map)
+            # For code
+            self.next_moves = GameState.search(game_map)
 
         # Just in case a student's code returns null
-        if self.nextMoves == None:
-            self.nextMoves = []
-            self.nextMoves.add(AgentAction.declareVictory)
+        if self.next_moves is None:
+            self.next_moves = []
+            self.next_moves.append(AgentAction.declareVictory)
 
         # Add up everything except doNothing and victory
         num = 0
-        for i in range(0, len(self.nextMoves)):
-            if (self.nextMoves[i] != AgentAction.doNothing and self.nextMoves[i] != AgentAction.declareVictory):
+        for i in range(len(self.next_moves)):
+            if self.next_moves[i] != AgentAction.doNothing and self.next_moves[i] != AgentAction.declareVictory:
                 num += 1
         print("Solution Depth =", num)

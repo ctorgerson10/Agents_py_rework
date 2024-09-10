@@ -4,13 +4,13 @@ from lib.screen import Screen
 from pathlib import Path
 
 
-class DrBsGui:
+class Gui:
     def __init__(self, file: Path = None, parent=None):
         self.m = tk.Tk()
         self.m.title("Dr Bs Dungeon Crawler")
         # self.m.geometry("600x200")
-        if file == None:
-            self.file = findRandomLayout()
+        if file is None:
+            self.file = find_random_layout()
         else:
             self.file = Path(file)
 
@@ -24,24 +24,24 @@ class DrBsGui:
         self.setup_events()
 
     def setup_events(self):
-        self.m.bind("<Key>", self.keyPressed)
+        self.m.bind("<Key>", self.key_pressed)
 
-    def keyPressed(self, keyevent):
+    def key_pressed(self, key_event):
         # print("Key pressed")
-        self.screen.player.setNextMove(keyevent)
+        self.screen.player.set_next_move(key_event)
 
 
-def loadAllFiles():
+def load_all_files():
     folder = Path("DungeonLayouts")
     files = list(folder.iterdir())
 
     for f in files:
-        if (f.is_file()):
-            d = DrBsGui(f)
+        if f.is_file():
+            d = Gui(f)
             d.m.mainloop()
 
 
-def findRandomLayout():
+def find_random_layout():
     folder = Path("DungeonLayouts")
     files = list(folder.iterdir())
     f = Path(files[random.randint(0, len(files)) - 1])
@@ -52,7 +52,7 @@ def findRandomLayout():
 
 
 # Some files for testing
-gui = DrBsGui(file=Path("DungeonLayouts", "testMaze.txt"))
+gui = Gui(file=Path("DungeonLayouts", "testMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","testSearch.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallSafeSearch.txt"))
