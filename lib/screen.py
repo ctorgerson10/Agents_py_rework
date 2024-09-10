@@ -1,11 +1,11 @@
 import tkinter as tk
 import random
 from pathlib import Path
-from GameObject import GameObject
-from AgentAction import AgentAction
-from Variables import Variables
+from lib.game_object import GameObject
+from lib.agent_action import AgentAction
+from lib.variables import Variables
 
-from GameStateReversed import GameStateReversed
+from lib.game_state_reversed import GameStateReversed
 
 class Screen (tk.Canvas):
 

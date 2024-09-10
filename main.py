@@ -1,55 +1,58 @@
 import tkinter as tk
 import random
-from Screen import Screen
+from lib.screen import Screen
 from pathlib import Path
 
+
 class DrBsGui:
-	def __init__(self, file:Path=None, parent=None):
-		self.m = tk.Tk()
-		self.m.title("Dr Bs Dungeon Crawler")
-		# self.m.geometry("600x200")
-		if file==None:
-			self.file = findRandomLayout()
-		else:
-			self.file = Path(file)
-		
-		self.screen = Screen(self.file)
+    def __init__(self, file: Path = None, parent=None):
+        self.m = tk.Tk()
+        self.m.title("Dr Bs Dungeon Crawler")
+        # self.m.geometry("600x200")
+        if file == None:
+            self.file = findRandomLayout()
+        else:
+            self.file = Path(file)
 
-		print(self.file.absolute())
+        self.screen = Screen(self.file)
 
-		self.m.geometry(str(self.screen.width) + "x"+str(self.screen.height))
-		print(str(self.screen.width) + "x"+str(self.screen.height))
+        print(self.file.absolute())
 
-		self.setup_events()
+        self.m.geometry(str(self.screen.width) + "x" + str(self.screen.height))
+        print(str(self.screen.width) + "x" + str(self.screen.height))
+
+        self.setup_events()
+
+    def setup_events(self):
+        self.m.bind("<Key>", self.keyPressed)
+
+    def keyPressed(self, keyevent):
+        # print("Key pressed")
+        self.screen.player.setNextMove(keyevent)
 
 
-	def setup_events(self):
-		self.m.bind("<Key>", self.keyPressed)
-
-	def keyPressed(self, keyevent):
-		# print("Key pressed")
-		self.screen.player.setNextMove(keyevent)
-		
 def loadAllFiles():
-	folder = Path("DungeonLayouts")
-	files = list(folder.iterdir())
+    folder = Path("DungeonLayouts")
+    files = list(folder.iterdir())
 
-	for f in files:
-		if(f.is_file()):
-			d = DrBsGui(f)
-			d.m.mainloop()
+    for f in files:
+        if (f.is_file()):
+            d = DrBsGui(f)
+            d.m.mainloop()
+
 
 def findRandomLayout():
-	folder = Path("DungeonLayouts")
-	files = list(folder.iterdir())
-	f = Path(files[random.randint(0,len(files))-1])
-	while f.is_dir():
-		f = Path(files[random.randint(0,len(files))-1])
+    folder = Path("DungeonLayouts")
+    files = list(folder.iterdir())
+    f = Path(files[random.randint(0, len(files)) - 1])
+    while f.is_dir():
+        f = Path(files[random.randint(0, len(files)) - 1])
 
-	return f
+    return f
 
-#Some files for testing
-gui = DrBsGui(file=Path("DungeonLayouts","testMaze.txt"))
+
+# Some files for testing
+gui = DrBsGui(file=Path("DungeonLayouts", "testMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","testSearch.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallSafeSearch.txt"))
@@ -65,7 +68,7 @@ gui = DrBsGui(file=Path("DungeonLayouts","testMaze.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","trappedClassic.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","trickySearch.txt"))
 
-		
+
 # # Two more for us to try, but probably not BFS
 # gui = DrBsGui(file=Path("DungeonLayouts","oddSearch.txt"))
 # gui = DrBsGui(file=Path("DungeonLayouts","smallClassic.txt"))
